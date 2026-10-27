@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#173d32">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Jëf Business">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<title>Jëf Business — Atelier</title>
+<style>
+:root{--green:#173d32;--lime:#d9e8c9;--bg:#f5f7f4;--card:#fff;--ink:#17231d;--muted:#66736b;--line:#dce4dc;--accent:#287457}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--ink);padding-bottom:24px}
+header{background:var(--green);color:white;padding:24px 18px 20px;border-radius:0 0 22px 22px}
+.brand{display:flex;align-items:center;gap:12px}.logo{width:46px;height:46px;background:var(--lime);color:var(--green);display:grid;place-items:center;border-radius:14px;font-size:25px;font-weight:800}
+h1{font-size:22px;margin:0}header p{color:#dce9df;margin:5px 0 0;font-size:13px}.sub{font-size:12px;opacity:.85;margin-top:18px}
+nav{display:grid;grid-template-columns:repeat(4,1fr);gap:5px;padding:10px;background:#e8eee8;position:sticky;top:0;z-index:2}
+nav button{border:0;border-radius:10px;background:transparent;padding:10px 2px;font-size:12px;color:#42534a}nav button.active{background:white;color:var(--accent);font-weight:700;box-shadow:0 1px 4px #0001}
+main{padding:15px;max-width:700px;margin:auto}.panel{display:none}.panel.active{display:block}.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:12px}
+h2{font-size:19px;margin:0 0 6px}h3{font-size:15px;margin:0 0 10px}.muted{color:var(--muted);font-size:13px;line-height:1.45}
+label{display:block;font-size:13px;font-weight:600;margin:12px 0 5px}input,select,textarea{width:100%;border:1px solid #cfd9d0;border-radius:10px;background:#fff;padding:12px;font:inherit;font-size:16px;color:var(--ink)}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{border:0;background:var(--accent);color:white;border-radius:11px;padding:13px 15px;font-size:15px;font-weight:700;width:100%;margin-top:12px}.btn.secondary{background:#e8eee8;color:var(--green)}.btn.danger{background:#fff0ed;color:#a53220}.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:#f1f6f1;border-radius:12px;padding:12px}.stat small{display:block;color:var(--muted);font-size:12px}.stat strong{display:block;font-size:21px;margin-top:5px;color:var(--green)}.item{border-top:1px solid var(--line);padding:12px 0;display:flex;gap:10px;justify-content:space-between;align-items:center}.item:first-child{border-top:0}.item strong{display:block;font-size:14px}.item small{display:block;color:var(--muted);margin-top:4px;font-size:12px}.pill{display:inline-block;background:#e7f2e8;color:#245b3e;padding:4px 8px;border-radius:99px;font-size:11px;font-weight:700}.notice{background:#fff8df;border:1px solid #f0e1a7;border-radius:12px;padding:12px;font-size:12px;line-height:1.45;color:#67551a}.empty{text-align:center;padding:18px;color:var(--muted);font-size:13px}.foot{text-align:center;color:var(--muted);font-size:11px;padding:8px 20px}
+</style>
+</head>
+<body>
+<header><div class="brand"><div class="logo">J</div><div><h1>Jëf Business</h1><p>Gestion d’atelier · Menuiserie bois & panneaux</p></div></div><div class="sub">MAD · Panneau standard 280 × 207 cm · 18 mm · Paoloni 315</div></header>
+<nav>
+<button class="active" data-tab="home">Accueil</button><button data-tab="cut">Découpe</button><button data-tab="orders">Commandes</button><button data-tab="stock">Stock</button>
+</nav>
+<main>
+<section id="home" class="panel active">
+<div class="card"><h2>Salam, bienvenue 👋</h2><p class="muted">Ton carnet d’atelier, simple et pensé pour le travail sur le terrain.</p><div class="stats"><div class="stat"><small>Commandes</small><strong id="countOrders">0</strong></div><div class="stat"><small>Pièces à découper</small><strong id="countPieces">0</strong></div><div class="stat"><small>Panneaux en stock</small><strong id="countStock">10</strong></div><div class="stat"><small>Solde clients</small><strong id="balance">0 DH</strong></div></div></div>
+<div class="card"><h3>Accès rapide</h3><button class="btn" onclick="go('orders')">＋ Ajouter une commande</button><button class="btn secondary" onclick="go('cut')">＋ Préparer une liste de découpe</button></div>
+<div class="notice"><strong>Prototype gratuit.</strong> Cette première version est un fichier autonome. Les données peuvent être gardées sur cet appareil si le navigateur autorise le stockage local. Exporte régulièrement une sauvegarde. Pour une vraie icône installable et un fonctionnement hors connexion garanti dans Safari, il faudra ensuite héberger gratuitement la version HTTPS et ajouter un cache hors ligne.</div>
+</section>
+<section id="cut" class="panel">
+<div class="card"><h2>Liste de découpe</h2><p class="muted">Dimensions en millimètres. La liste aide à préparer les coupes manuelles ; elle ne calcule pas encore un plan d’imbrication optimisé.</p>
+<div class="grid"><div><label>Longueur (mm)</label><input id="pieceL" type="number" inputmode="decimal" value="600" min="1"></div><div><label>Largeur (mm)</label><input id="pieceW" type="number" inputmode="decimal" value="400" min="1"></div></div>
+<div class="grid"><div><label>Quantité</label><input id="pieceQ" type="number" inputmode="numeric" value="4" min="1" step="1"></div><div><label>Épaisseur</label><select id="pieceT"><option>18</option><option>16</option><option>19</option></select></div></div>
+<label>Matériau</label><select id="pieceM"><option>Mélaminé</option><option>MDF</option><option>Contreplaqué</option><option>Autre</option></select>
+<label>Trait de scie</label><select id="kerf"><option>À mesurer</option><option>3,2 mm (à confirmer)</option><option>4 mm (à confirmer)</option></select>
+<button class="btn" onclick="addPiece()">Ajouter la pièce</button>
+<div id="piecesList"></div><button class="btn secondary" onclick="copyCutList()">Copier la liste</button>
+<div class="notice" style="margin-top:12px">Vérifie les dimensions, le sens du décor, le chant et le trait de scie avant chaque coupe. Le plan doit être validé par l’opérateur.</div>
+</div>
+</section>
+<section id="orders" class="panel">
+<div class="card"><h2>Nouvelle commande</h2><label>Client</label><input id="client" placeholder="Nom du client"><label>Projet</label><input id="project" placeholder="Ex. placard, cuisine, portes"><div class="grid"><div><label>Prix convenu (DH)</label><input id="orderPrice" type="number" inputmode="decimal" value="0" min="0"></div><div><label>Avance reçue (DH)</label><input id="orderPaid" type="number" inputmode="decimal" value="0" min="0"></div></div><label>Date prévue (facultatif)</label><input id="orderDate" type="date"><button class="btn" onclick="addOrder()">Enregistrer la commande</button></div>
+<div class="card"><h3>Commandes enregistrées</h3><div id="ordersList" class="empty">Aucune commande pour le moment.</div></div>
+</section>
+<section id="stock" class="panel">
+<div class="card"><h2>Stock des panneaux</h2><p class="muted">Panneau de référence : 2800 × 2070 mm. Mets à jour le nombre après chaque achat ou utilisation.</p><label>Quantité en stock</label><input id="stockQty" type="number" inputmode="numeric" min="0" value="10"><label>Prix d’achat par panneau (DH)</label><input id="stockUnit" type="number" inputmode="decimal" min="0" value="250"><button class="btn" onclick="saveStock()">Enregistrer le stock</button><div class="stats" style="margin-top:14px"><div class="stat"><small>Valeur estimée</small><strong id="stockValue">2 500 DH</strong></div><div class="stat"><small>Surface totale</small><strong id="stockArea">57,96 m²</strong></div></div></div>
+<div class="card"><h3>Sauvegarde des données</h3><p class="muted">Exporte un fichier JSON pour conserver une copie de tes commandes, découpes et stock.</p><button class="btn secondary" onclick="exportData()">Exporter la sauvegarde</button><label>Restaurer une sauvegarde JSON</label><input type="file" id="importFile" accept=".json,application/json"><button class="btn secondary" onclick="importData()">Importer la sauvegarde</button></div>
+</section>
+</main><div class="foot">Jëf Business · Prototype 0.1 · Les données sont destinées à cet appareil.</div>
+<script>
+const KEY='jef-business-prototype-v1';
+let data={pieces:[],orders:[],stock:10,stockUnit:250};
+function load(){try{const x=localStorage.getItem(KEY);if(x)data={...data,...JSON.parse(x)}}catch(e){}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(data));return true}catch(e){alert("Le navigateur n’a pas permis d’enregistrer les données. Exporte une sauvegarde et garde ce fichier dans un emplacement sûr.");return false}}
+function fmt(n){return Number(n||0).toLocaleString('fr-FR',{maximumFractionDigits:2})}
+function go(id){document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('active',x.dataset.tab===id));window.scrollTo(0,0);render()}
+document.querySelectorAll('nav button').forEach(b=>b.addEventListener('click',()=>go(b.dataset.tab)));
+function addPiece(){let l=+pieceL.value,w=+pieceW.value,q=+pieceQ.value;if(!(l>0&&w>0&&q>0&&Number.isInteger(q))){alert('Entre des dimensions et une quantité valides.');return}if(l>2800||w>2070){alert('Cette pièce dépasse les dimensions du panneau. Vérifie aussi la rotation éventuelle.');return}data.pieces.push({l,w,q,t:pieceT.value,m:pieceM.value,kerf:kerf.value});save();render()}
+function addOrder(){let c=client.value.trim(),p=project.value.trim(),price=+orderPrice.value,paid=+orderPaid.value;if(!c||!p){alert('Renseigne le client et le projet.');return}if(price<0||paid<0){alert('Les montants doivent être positifs.');return}data.orders.unshift({id:Date.now(),client:c,project:p,price,paid,date:orderDate.value});save();client.value='';project.value='';orderPrice.value='0';orderPaid.value='0';orderDate.value='';render();alert('Commande enregistrée dans le prototype.')}
+function saveStock(){let q=+stockQty.value,v=+stockUnit.value;if(q<0||v<0){alert('Les valeurs ne peuvent pas être négatives.');return}data.stock=q;data.stockUnit=v;save();render();alert('Stock mis à jour.')}
+function delPiece(i){data.pieces.splice(i,1);save();render()}
+function delOrder(id){if(confirm('Supprimer cette commande ?')){data.orders=data.orders.filter(o=>o.id!==id);save();render()}}
+function render(){document.getElementById('countOrders').textContent=data.orders.length;document.getElementById('countPieces').textContent=data.pieces.reduce((s,p)=>s+p.q,0);document.getElementById('countStock').textContent=data.stock;document.getElementById('balance').textContent=fmt(data.orders.reduce((s,o)=>s+o.price-o.paid,0))+' DH';
+document.getElementById('piecesList').innerHTML=data.pieces.length?'<h3 style="margin-top:16px">Pièces ajoutées</h3>'+data.pieces.map((p,i)=>`<div class="item"><div><strong>${p.l} × ${p.w} mm · Qté ${p.q}</strong><small>${p.m} · ${p.t} mm · Lame : ${p.kerf}</small></div><button class="btn danger" style="width:auto;margin:0;padding:8px 10px" onclick="delPiece(${i})">Retirer</button></div>`).join(''):'<div class="empty">Aucune pièce ajoutée.</div>';
+document.getElementById('ordersList').innerHTML=data.orders.length?data.orders.map(o=>`<div class="item"><div><strong>${esc(o.client)} — ${esc(o.project)}</strong><small>${o.date?'Date : '+esc(o.date)+' · ':''}Prix ${fmt(o.price)} DH · Avance ${fmt(o.paid)} DH · Solde ${fmt(o.price-o.paid)} DH</small></div><button class="btn danger" style="width:auto;margin:0;padding:8px 10px" onclick="delOrder(${o.id})">Supprimer</button></div>`).join(''):'<div class="empty">Aucune commande pour le moment.</div>';
+stockQty.value=data.stock;stockUnit.value=data.stockUnit;document.getElementById('stockValue').textContent=fmt(data.stock*data.stockUnit)+' DH';document.getElementById('stockArea').textContent=fmt(data.stock*5.796)+' m²'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function copyCutList(){let s='JËF BUSINESS — LISTE DE DÉCOUPE\nPanneau : 2800 × 2070 mm\nMachine : Paoloni 315\nTrait de scie : à vérifier\n\n'+data.pieces.map((p,i)=>`${i+1}. ${p.l} × ${p.w} mm — Qté ${p.q} — ${p.m} ${p.t} mm — Lame ${p.kerf}`).join('\n');if(!data.pieces.length)s+='Aucune pièce.';if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(s).then(()=>alert('Liste copiée.')).catch(()=>prompt('Copie cette liste :',s));else prompt('Copie cette liste :',s)}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='jef-business-sauvegarde.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500)}
+function importData(){let f=importFile.files[0];if(!f){alert('Choisis d’abord un fichier JSON.');return}let r=new FileReader();r.onload=()=>{try{let x=JSON.parse(r.result);if(!Array.isArray(x.pieces)||!Array.isArray(x.orders))throw Error();data={pieces:x.pieces,orders:x.orders,stock:Number(x.stock)||0,stockUnit:Number(x.stockUnit)||0};save();render();alert('Sauvegarde importée.')}catch(e){alert('Fichier de sauvegarde invalide.')}};r.readAsText(f)}
+load();render();
+</script>
+<script>if("serviceWorker" in navigator){window.addEventListener("load",()=>navigator.serviceWorker.register("./sw.js").catch(()=>{}));}</script>
+</body></html>

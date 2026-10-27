@@ -1,0 +1,21 @@
+JËF BUSINESS — VERSION WEB HORS CONNEXION
+
+Contenu :
+- index.html : application
+- manifest.webmanifest : paramètres d’installation
+- sw.js : mise en cache hors connexion
+- icons/ : icônes
+
+IMPORTANT
+Le mode hors connexion et l’installation PWA nécessitent un hébergement HTTPS. Ouvrir index.html directement depuis Fichiers sur iPhone ne suffit pas pour activer le service worker.
+
+ÉTAPE SUIVANTE
+1. Déployer le contenu de ce dossier sur un hébergement HTTPS gratuit (par exemple un service de déploiement statique gratuit).
+2. Ouvrir l’adresse HTTPS obtenue dans Safari sur l’iPhone et laisser la page charger une première fois avec Internet.
+3. Dans Safari : bouton Partager > Sur l’écran d’accueil > Ajouter.
+4. Ouvrir Jëf Business depuis l’icône, puis tester le mode avion.
+
+DONNÉES
+Les données du prototype sont conservées localement dans le navigateur. Utiliser régulièrement Exporter / Importer la sauvegarde JSON et conserver une copie ailleurs : effacer les données du navigateur peut supprimer les données enregistrées.
+
+Cette version est un prototype, pas encore publiée sur l’App Store.
